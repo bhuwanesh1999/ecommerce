@@ -1,0 +1,34 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+		xmlns:beans="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security.xsd">
+		
+		
+		<http>
+		<intercept-url pattern="/productpage*" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/listview*" access="hasRole('ROLE_USER')" />
+		<form-login
+			login-page="/login"
+			authentication-failure-url="/fail"
+			username-parameter="username"
+			password-parameter="password" />
+		<csrf/>
+		<logout logout-success-url="/" />	
+		
+		</http>
+		
+		<authentication-manager>
+			<authentication-provider>
+			<password-encoder hash="bcrypt" />
+				<user-service>
+					<user name="vinodh" password="$2y$12$r.pzY2WwprO1jF04QUNAr.oGYdF0T2y7Bm5XMVHVny1Ae.aZaZ.o6" authorities="ROLE_USER" />
+					<user name="Ajay" password="$2y$12$3IVe0DZ6485G6QNiFQBIdePciSN/RPcLaWdPlEAlbJUmjmk6UH8gm" authorities="ROLE_ADMIN" />
+				</user-service>
+			</authentication-provider>
+		</authentication-manager>
+		
+		
+		</beans:beans>
